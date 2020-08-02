@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/gogf/gf-demos/app/api/auth"
 	"github.com/gogf/gf-demos/app/api/chat"
 	"github.com/gogf/gf-demos/app/api/curd"
 	"github.com/gogf/gf-demos/app/api/user"
@@ -20,6 +21,7 @@ func init() {
 
 	// 分组路由注册方式
 	s.Group("/", func(group *ghttp.RouterGroup) {
+		group.POST("/login", auth.GfJWTMiddleware.LoginHandler)
 		ctlChat := new(chat.Controller)
 		ctlUser := new(user.Controller)
 		group.Middleware(middleware.CORS)
@@ -28,6 +30,7 @@ func init() {
 		group.ALL("/curd/:table", new(curd.Controller))
 		group.Group("/", func(group *ghttp.RouterGroup) {
 			group.Middleware(middleware.Auth)
+			group.POST("/refresh_token", auth.GfJWTMiddleware.RefreshHandler)
 			group.ALL("/user/profile", ctlUser, "Profile")
 		})
 	})

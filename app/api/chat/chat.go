@@ -3,6 +3,8 @@ package chat
 import (
 	"fmt"
 
+	"time"
+
 	"github.com/gogf/gf/container/garray"
 	"github.com/gogf/gf/container/gmap"
 	"github.com/gogf/gf/container/gset"
@@ -14,7 +16,6 @@ import (
 	"github.com/gogf/gf/os/gcache"
 	"github.com/gogf/gf/util/gconv"
 	"github.com/gogf/gf/util/gvalid"
-	"time"
 )
 
 // Controller 控制器结构体。
@@ -82,6 +83,7 @@ func (c *Controller) SetName() {
 		c.Session.Set("chat_name", name)
 		c.Session.Remove("chat_name_temp")
 		c.Session.Remove("chat_name_error")
+
 		c.Response.RedirectTo("/chat")
 	}
 }
@@ -105,10 +107,13 @@ func (c *Controller) WebSocket() {
 	if name == "" {
 		name = c.Request.RemoteAddr
 	}
-
 	// 初始化时设置用户昵称为当前链接信息
 	names.Add(name)
 	users.Set(c.ws, name)
+
+	if err := c.writeGroup1(Msg{"online", name + "有好友上线了", name}); err != nil {
+		g.Log().Error(err)
+	}
 
 	// 初始化后向所有客户端发送上线消息
 	c.writeUsers()
@@ -152,12 +157,13 @@ func (c *Controller) WebSocket() {
 			}
 			// 有消息时，群发消息
 			if msg.Data != nil {
-				if err = c.writeGroup(
-					Msg{"send",
-						ghtml.SpecialChars(gconv.String(msg.Data)),
-						ghtml.SpecialChars(msg.From)}); err != nil {
+				if err = c.writeGroup(Msg{"send", ghtml.SpecialChars(gconv.String(msg.Data)), ghtml.SpecialChars(msg.From)}); err != nil {
 					g.Log().Error(err)
 				}
+			}
+		case "heart":
+			if err = c.writeGroup(Msg{"heart", "heart", ghtml.SpecialChars(msg.From)}); err != nil {
+				g.Log().Error(err)
 			}
 		}
 	}
@@ -182,6 +188,24 @@ func (c *Controller) writeGroup(msg Msg) error {
 	}
 	users.RLockFunc(func(m map[interface{}]interface{}) {
 		for user := range m {
+			user.(*ghttp.WebSocket).WriteMessage(ghttp.WS_MSG_TEXT, []byte(b))
+		}
+	})
+
+	return nil
+}
+
+func (c *Controller) writeGroup1(msg Msg) error {
+	b, err := gjson.Encode(msg)
+	if err != nil {
+		return err
+	}
+	users.RLockFunc(func(m map[interface{}]interface{}) {
+		fmt.Println(m)
+		for user, vq := range m {
+			if msg.From == vq {
+				continue
+			}
 			user.(*ghttp.WebSocket).WriteMessage(ghttp.WS_MSG_TEXT, []byte(b))
 		}
 	})

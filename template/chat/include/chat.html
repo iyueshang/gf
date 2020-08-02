@@ -81,6 +81,7 @@
             // ws连接成功
             ws.onopen = function () {
                 showInfo("WebSocket Server 连接成功！");
+                heartCheck.start();
             };
             // ws连接关闭
             ws.onclose = function () {
@@ -114,10 +115,15 @@
                         $('.online-list').html(content);
                         break;
 
+                    case "online":
+                        showSuccess("【" + msg.name + "】: " + msg.data);
+                        break;
+
                     case "error":
                         showError(msg.data);
                         break;
                 }
+                heartCheck.reset();
             };
         } catch (e) {
             layer.msg(e.message);
@@ -145,5 +151,20 @@
                 $("#btnSend").trigger("click");
             }
         });
+
+        var heartCheck = {
+            timeout: 60000,//60ms
+            timeoutObj: null,
+            reset: function () {
+                clearTimeout(this.timeoutObj);
+                this.start();
+            },
+            start: function () {
+                this.timeoutObj = setTimeout(function () {
+                    sendMsg("","heart",'heart');
+                }, this.timeout)
+            }
+        }
+
     })
 </script>

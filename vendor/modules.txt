@@ -1,0 +1,115 @@
+# github.com/BurntSushi/toml v0.3.1
+github.com/BurntSushi/toml
+# github.com/clbanning/mxj v1.8.4
+github.com/clbanning/mxj
+# github.com/fsnotify/fsnotify v1.4.9
+github.com/fsnotify/fsnotify
+# github.com/go-sql-driver/mysql v1.5.0
+github.com/go-sql-driver/mysql
+# github.com/gogf/gf v1.13.1
+github.com/gogf/gf
+github.com/gogf/gf/container/garray
+github.com/gogf/gf/container/glist
+github.com/gogf/gf/container/gmap
+github.com/gogf/gf/container/gpool
+github.com/gogf/gf/container/gqueue
+github.com/gogf/gf/container/gset
+github.com/gogf/gf/container/gtree
+github.com/gogf/gf/container/gtype
+github.com/gogf/gf/container/gvar
+github.com/gogf/gf/crypto/gaes
+github.com/gogf/gf/crypto/gmd5
+github.com/gogf/gf/database/gdb
+github.com/gogf/gf/database/gredis
+github.com/gogf/gf/debug/gdebug
+github.com/gogf/gf/encoding/gbase64
+github.com/gogf/gf/encoding/gbinary
+github.com/gogf/gf/encoding/gcharset
+github.com/gogf/gf/encoding/gcompress
+github.com/gogf/gf/encoding/ghash
+github.com/gogf/gf/encoding/ghtml
+github.com/gogf/gf/encoding/gini
+github.com/gogf/gf/encoding/gjson
+github.com/gogf/gf/encoding/gparser
+github.com/gogf/gf/encoding/gtoml
+github.com/gogf/gf/encoding/gurl
+github.com/gogf/gf/encoding/gxml
+github.com/gogf/gf/encoding/gyaml
+github.com/gogf/gf/errors/gerror
+github.com/gogf/gf/frame/g
+github.com/gogf/gf/frame/gins
+github.com/gogf/gf/frame/gmvc
+github.com/gogf/gf/i18n/gi18n
+github.com/gogf/gf/internal/cmdenv
+github.com/gogf/gf/internal/empty
+github.com/gogf/gf/internal/fileinfo
+github.com/gogf/gf/internal/intlog
+github.com/gogf/gf/internal/rwmutex
+github.com/gogf/gf/internal/structs
+github.com/gogf/gf/internal/utils
+github.com/gogf/gf/net/ghttp
+github.com/gogf/gf/net/gipv4
+github.com/gogf/gf/net/gipv6
+github.com/gogf/gf/net/gtcp
+github.com/gogf/gf/net/gudp
+github.com/gogf/gf/os/gcache
+github.com/gogf/gf/os/gcfg
+github.com/gogf/gf/os/genv
+github.com/gogf/gf/os/gfcache
+github.com/gogf/gf/os/gfile
+github.com/gogf/gf/os/gfpool
+github.com/gogf/gf/os/gfsnotify
+github.com/gogf/gf/os/glog
+github.com/gogf/gf/os/gmlock
+github.com/gogf/gf/os/gmutex
+github.com/gogf/gf/os/gproc
+github.com/gogf/gf/os/gres
+github.com/gogf/gf/os/grpool
+github.com/gogf/gf/os/gsession
+github.com/gogf/gf/os/gspath
+github.com/gogf/gf/os/gtime
+github.com/gogf/gf/os/gtimer
+github.com/gogf/gf/os/gview
+github.com/gogf/gf/text/gregex
+github.com/gogf/gf/text/gstr
+github.com/gogf/gf/util/gconv
+github.com/gogf/gf/util/gmode
+github.com/gogf/gf/util/gpage
+github.com/gogf/gf/util/grand
+github.com/gogf/gf/util/guid
+github.com/gogf/gf/util/gutil
+github.com/gogf/gf/util/gvalid
+# github.com/gogf/swagger v1.0.4-0.20200614131045-bbc1e5adafe5
+github.com/gogf/swagger
+# github.com/gomodule/redigo v2.0.0+incompatible
+github.com/gomodule/redigo/internal
+github.com/gomodule/redigo/redis
+# github.com/gorilla/websocket v1.4.2
+github.com/gorilla/websocket
+# github.com/gqcn/structs v1.1.1
+github.com/gqcn/structs
+# github.com/grokify/html-strip-tags-go v0.0.0-20200322061010-ea0c1cf2f119
+github.com/grokify/html-strip-tags-go
+# github.com/mattn/go-runewidth v0.0.9
+github.com/mattn/go-runewidth
+# github.com/olekukonko/tablewriter v0.0.4
+github.com/olekukonko/tablewriter
+# golang.org/x/sys v0.0.0-20200610111108-226ff32320da
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+# golang.org/x/text v0.3.2
+golang.org/x/text/encoding
+golang.org/x/text/encoding/charmap
+golang.org/x/text/encoding/ianaindex
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/japanese
+golang.org/x/text/encoding/korean
+golang.org/x/text/encoding/simplifiedchinese
+golang.org/x/text/encoding/traditionalchinese
+golang.org/x/text/encoding/unicode
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/runes
+golang.org/x/text/transform
+# gopkg.in/yaml.v3 v3.0.0-20200605160147-a5ece683394c
+gopkg.in/yaml.v3

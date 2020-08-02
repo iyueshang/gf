@@ -7,5 +7,7 @@ import (
 )
 
 func main() {
-	g.Server().Run()
+	s := g.Server()
+	s.EnableAdmin()
+	s.Run()
 }

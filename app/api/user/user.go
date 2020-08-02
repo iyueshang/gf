@@ -1,9 +1,14 @@
 package user
 
 import (
+	"fmt"
+
+	"github.com/gogf/gf-demos/app/api/auth"
 	"github.com/gogf/gf-demos/app/service/user"
 	"github.com/gogf/gf-demos/library/response"
+	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/util/gconv"
 )
 
 // 用户API管理对象
@@ -133,5 +138,14 @@ func (c *Controller) CheckNickName(r *ghttp.Request) {
 // @router  /user/profile [GET]
 // @success 200 {object} user.Entity "用户信息"
 func (c *Controller) Profile(r *ghttp.Request) {
-	response.JsonExit(r, 0, "", user.GetProfile(r.Session))
+	user, _ := auth.GfJWTMiddleware.ParseToken(r)
+	user1 := gconv.Map(user.Claims)
+	fmt.Println(user1["id"])
+	fmt.Println(user1["username"])
+	fmt.Println(user1["username"])
+
+	response.JsonExit(r, 0, "", g.Map{
+		"id":       user1["id"],
+		"username": user1["username"],
+	})
 }
