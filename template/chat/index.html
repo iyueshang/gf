@@ -1,17 +1,221 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ChatRoom - demo powered by GoFrame</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css">
-    <link rel="icon" href="/resource/image/favicon.ico" type="image/x-icon">
-    <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title>layim - WebIM</title><link rel="stylesheet" href="/resource/css/contextMenu.css" />
+    <link rel="stylesheet" href="/resource/layui/css/layui.css">
+    <link rel="stylesheet" href="/resource/css/menu.css">
+    <link href="favicon.ico" type="image/vnd.microsoft.icon" rel="shortcut icon"/>
 </head>
 <body>
-    ${include .tplMain .}
-    <script src="//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
-    <script src="//cdn.bootcss.com/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
-    <script src="/plugin/layer-3.1.1/layer.js"></script>
+
 </body>
+<script src="/resource/js/jquery-3.1.1.min.js"></script>
+<script src="/resource/layui/layui.js"></script>
+<script>
+    $(document).ready(function(){
+        token = localStorage.getItem("token");
+        if (!token){
+            window.location.href = '/login'
+        }
+    });
+    //layui绑定扩展
+    layui.config({
+        base: '/resource/js/'
+    });
+    layui.use(['layim', 'jquery'], function (layim) {
+        var $ = layui.jquery;
+
+        layim.config({
+            init: {
+                url: 'class/doAction.php?action=get_user_data', data: {}
+            },
+            //获取群成员
+            members: {
+                url: 'class/doAction.php?action=groupMembers', data: {}
+            }
+            //上传图片接口
+            , uploadImage: {
+                url: 'class/doAction.php?action=uploadImage' //（返回的数据格式见下文）
+                , type: 'post' //默认post
+            }
+            //上传文件接口
+            , uploadFile: {
+                url: 'class/doAction.php?action=uploadFile' //
+                , type: 'post' //默认post
+            }
+            //自定义皮肤
+            ,uploadSkin: {
+                url: 'class/doAction.php?action=uploadSkin'
+                , type: 'post' //默认post
+            }
+            //选择系统皮肤
+            ,systemSkin: {
+                url: 'class/doAction.php?action=systemSkin'
+                , type: 'post' //默认post
+            }
+            //获取推荐好友
+            ,getRecommend:{
+                url: 'class/doAction.php?action=getRecommend'
+                , type: 'get' //默认
+            }
+            //查找好友总数
+            ,findFriendTotal:{
+                url: 'class/doAction.php?action=findFriendTotal'
+                , type: 'get' //默认
+            }
+            //查找好友
+            ,findFriend:{
+                url: 'class/doAction.php?action=findFriend'
+                , type: 'get' //默认
+            }
+            //获取好友资料
+            ,getInformation:{
+                url: 'class/doAction.php?action=getInformation'
+                , type: 'get' //默认
+            }
+            //保存我的资料
+            ,saveMyInformation:{
+                url: 'class/doAction.php?action=saveMyInformation'
+                , type: 'post' //默认
+            }
+            //提交建群信息
+            ,commitGroupInfo:{
+                url: 'class/doAction.php?action=commitGroupInfo'
+                , type: 'get' //默认
+            }
+            //获取系统消息
+            ,getMsgBox:{
+                url: 'class/doAction.php?action=getMsgBox'
+                , type: 'get' //默认post
+            }
+            //获取总的记录数
+            ,getChatLogTotal:{
+                url: 'class/doAction.php?action=getChatLogTotal'
+                , type: 'get' //默认post
+            }
+            //获取历史记录
+            ,getChatLog:{
+                url: 'class/doAction.php?action=getChatLog'
+                , type: 'get' //默认post
+            }
+            , isAudio: false //开启聊天工具栏音频
+            , isVideo: false //开启聊天工具栏视频
+            , groupMembers: true
+            //扩展工具栏
+            // , tool: [{
+            //         alias: 'code'
+            //         , title: '代码'
+            //         , icon: '&#xe64e;'
+            //     }]
+            ,title: 'layim'
+            ,copyright:true
+            , initSkin: '1.jpg' //1-5 设置初始背景
+            , notice: true //是否开启桌面消息提醒，默认false
+            , systemNotice: false //是否开启系统消息提醒，默认false
+            , msgbox: layui.cache.dir + 'css/modules/layim/html/msgbox.html' //消息盒子页面地址，若不开启，剔除该项即可
+            , find: layui.cache.dir + 'css/modules/layim/html/find.html' //发现页面地址，若不开启，剔除该项即可
+            , chatLog: layui.cache.dir + 'css/modules/layim/html/chatlog.html' //聊天记录页面地址，若不开启，剔除该项即可
+            , createGroup: layui.cache.dir + 'css/modules/layim/html/createGroup.html' //创建群页面地址，若不开启，剔除该项即可
+            , Information: layui.cache.dir + 'css/modules/layim/html/getInformation.html' //好友群资料页面
+        });
+        layim.on('sendMessage', function(data){
+            console.log(data)
+            ajax({
+                url:"layim/sendMessage", //请求地址
+                type:'POST',   //请求方式
+                data:{content:JSON.stringify(data),_token:Laravel.csrfToken,client_id:client_id}, //请求参数
+                dataType:"json",     // 返回值类型的设定
+                async:true,   //是否异步
+                success:function (response,xml) {
+                    //   此处执行请求成功后的代码
+                },
+                fail:function (status) {
+                    console.log('状态码为'+status);   // 此处为执行成功后的代码
+                }
+            });
+        });
+        layim.on('newFriend', function(){
+            //弹出面板
+            layim.panel({
+                title: '新的朋友' //标题
+                ,tpl: '<div style="padding: 10px;">自定义模版，@{{d.data.test}}</div>' //模版，基于laytpl语法
+                ,data: { //数据
+                    test: '么么哒'
+                }
+            });
+            //也可以直接跳转页面，如：
+            //location.href = './newfriend'
+        });
+        layim.on('detail', function(data1){
+            console.log(data1); //获取当前会话对象，包含了很多所需要的信息
+            //以查看群组信息（如成员）为例
+            ajax({
+                url:"groups/"+data1.id+"/members", //请求地址
+                type:'GET',   //请求方式
+                data:{}, //请求参数
+                dataType:"json",     // 返回值类型的设定
+                async:true,   //是否异步
+                success:function (response,xml) {
+                    var data = JSON.parse(response)
+                    layim.panel({
+                        title: data1.name + '群员信息' //标题
+                        ,tpl: members.innerHTML //模版，基于laytpl语法
+                        ,data: { //数据
+                            members: data.data.members //假设rows为群组成员
+                        }
+                    });
+                },
+                fail:function (status) {
+                    console.log('状态码为'+status);   // 此处为执行成功后的代码
+                }
+            });
+        });
+        // layim.on('chatChange', function(res){
+        //     console.log(res)
+        //     var type = res.data.type;
+        //     if(type === 'friend'){
+        //         layim.setChatStatus('在线'); //模拟标注好友在线状态
+        //     }
+        // });
+        var socket = new WebSocket('ws://127.0.0.1:8199/im?token=' + token);
+        socket.onopen = function(){
+            // socket.send('XXX连接成功');
+            console.log('连接成功')
+        };
+        //监听收到的消息
+        socket.onmessage = function(res){
+            console.log('收到信息')
+            console.log(res)
+            var data = JSON.parse(res.data)
+            switch (data.type) {
+                case 'login':
+                    client_id = data.client_id
+                    setInterval(function(){
+                        socket.send("111")
+                    },5000*10)
+                    ajax({
+                        url:"user/bind", //请求地址
+                        type:'POST',   //请求方式
+                        data:{client_id:data.client_id,_token:Laravel.csrfToken}, //请求参数
+                        dataType:"json",     // 返回值类型的设定
+                        async:true,   //是否异步
+                        success:function (response,xml) {
+                            //   此处执行请求成功后的代码
+                        },
+                        fail:function (status) {
+                            console.log('状态码为'+status);   // 此处为执行成功后的代码
+                        }
+                    });
+                    break;
+                case 'getMessage':
+                    layim.getMessage(data['content'])
+                    break;
+            }
+            //res为接受到的值，如 {"emit": "messageName", "data": {}}
+            //emit即为发出的事件名，用于区分不同的消息
+        };
+
+    });
+</script>
 </html>

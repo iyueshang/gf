@@ -1,11 +1,11 @@
 package auth
 
 import (
-	"errors"
 	"net/http"
 	"time"
 
 	"github.com/gogf/gf-demos/app/model/user"
+
 	jwt "github.com/gogf/gf-jwt"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
@@ -109,17 +109,13 @@ func Authenticator(r *ghttp.Request) (interface{}, error) {
 		return "", jwt.ErrFailedAuthentication
 	}
 
-	one, err := user.FindOne("username=? and password=?", data["username"], data["password"])
+	user := user.User{}
+	one, err := user.GetOne(r.GetString("username"))
 	if err != nil {
 		return nil, err
 	}
-	if one == nil {
-		return nil, errors.New("账号或密码错误")
-	}
-	r.SetCtxVar("auth_user", one)
 	return g.Map{
 		"username": one.Username,
 		"id":       one.Id,
 	}, nil
-	//return nil, jwt.ErrFailedAuthentication
 }

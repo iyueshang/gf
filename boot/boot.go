@@ -1,6 +1,7 @@
 package boot
 
 import (
+	"github.com/gogf/gf-demos/database"
 	_ "github.com/gogf/gf-demos/packed"
 
 	"github.com/gogf/gf/frame/g"
@@ -11,4 +12,5 @@ import (
 func init() {
 	s := g.Server()
 	s.Plugin(&swagger.Swagger{})
+	database.Setup("mysql")
 }

@@ -3,7 +3,8 @@ package router
 import (
 	"github.com/gogf/gf-demos/app/api/auth"
 	"github.com/gogf/gf-demos/app/api/chat"
-	"github.com/gogf/gf-demos/app/api/curd"
+	"github.com/gogf/gf-demos/app/api/im"
+	"github.com/gogf/gf-demos/app/api/login"
 	"github.com/gogf/gf-demos/app/api/user"
 	"github.com/gogf/gf-demos/app/service/middleware"
 	"github.com/gogf/gf/frame/g"
@@ -18,20 +19,20 @@ func init() {
 
 	// 某些浏览器直接请求favicon.ico文件，特别是产生404时
 	s.SetRewrite("/favicon.ico", "/resource/image/favicon.ico")
-
 	// 分组路由注册方式
 	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.POST("/login", auth.GfJWTMiddleware.LoginHandler)
-		ctlChat := new(chat.Controller)
-		ctlUser := new(user.Controller)
 		group.Middleware(middleware.CORS)
-		group.ALL("/chat", ctlChat)
-		group.ALL("/user", ctlUser)
-		group.ALL("/curd/:table", new(curd.Controller))
+		group.ALL("/im", im.Im)
+		group.GET("/chat", chat.Index)
+		group.GET("/login", login.Index)
+		group.GET("/user", user.Index)
+		group.POST("/login", auth.GfJWTMiddleware.LoginHandler)
 		group.Group("/", func(group *ghttp.RouterGroup) {
 			group.Middleware(middleware.Auth)
+			group.Group("/users", func(group *ghttp.RouterGroup) {
+				group.GET("/profile", user.Profile)
+			})
 			group.POST("/refresh_token", auth.GfJWTMiddleware.RefreshHandler)
-			group.ALL("/user/profile", ctlUser, "Profile")
 		})
 	})
 }
