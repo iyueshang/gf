@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"github.com/gogf/gf/util/gconv"
 
 	"github.com/gogf/gf-demos/app/model/user"
@@ -14,6 +15,7 @@ func Index(r *ghttp.Request) {
 
 func Profile(r *ghttp.Request) {
 	auth_user := r.GetCtxVar("auth_user")
+	fmt.Println(auth_user)
 	user := user.User{}
 	profile, err := user.GetProfile(gconv.Int8("1"))
 	if err != nil {

@@ -2,6 +2,8 @@
 github.com/BurntSushi/toml
 # github.com/clbanning/mxj v1.8.4
 github.com/clbanning/mxj
+# github.com/dgrijalva/jwt-go v3.2.0+incompatible
+github.com/dgrijalva/jwt-go
 # github.com/fsnotify/fsnotify v1.4.9
 github.com/fsnotify/fsnotify
 # github.com/go-sql-driver/mysql v1.5.0
@@ -38,7 +40,6 @@ github.com/gogf/gf/encoding/gyaml
 github.com/gogf/gf/errors/gerror
 github.com/gogf/gf/frame/g
 github.com/gogf/gf/frame/gins
-github.com/gogf/gf/frame/gmvc
 github.com/gogf/gf/i18n/gi18n
 github.com/gogf/gf/internal/cmdenv
 github.com/gogf/gf/internal/empty
@@ -79,6 +80,9 @@ github.com/gogf/gf/util/grand
 github.com/gogf/gf/util/guid
 github.com/gogf/gf/util/gutil
 github.com/gogf/gf/util/gvalid
+# github.com/gogf/gf-jwt v1.1.0
+github.com/gogf/gf-jwt
+github.com/gogf/gf-jwt/example/auth
 # github.com/gogf/swagger v1.0.4-0.20200614131045-bbc1e5adafe5
 github.com/gogf/swagger
 # github.com/gomodule/redigo v2.0.0+incompatible
@@ -90,6 +94,10 @@ github.com/gorilla/websocket
 github.com/gqcn/structs
 # github.com/grokify/html-strip-tags-go v0.0.0-20200322061010-ea0c1cf2f119
 github.com/grokify/html-strip-tags-go
+# github.com/jinzhu/inflection v1.0.0
+github.com/jinzhu/inflection
+# github.com/jinzhu/now v1.1.1
+github.com/jinzhu/now
 # github.com/mattn/go-runewidth v0.0.9
 github.com/mattn/go-runewidth
 # github.com/olekukonko/tablewriter v0.0.4
@@ -113,3 +121,13 @@ golang.org/x/text/runes
 golang.org/x/text/transform
 # gopkg.in/yaml.v3 v3.0.0-20200605160147-a5ece683394c
 gopkg.in/yaml.v3
+# gorm.io/driver/mysql v0.3.1
+gorm.io/driver/mysql
+# gorm.io/gorm v0.2.31
+gorm.io/gorm
+gorm.io/gorm/callbacks
+gorm.io/gorm/clause
+gorm.io/gorm/logger
+gorm.io/gorm/migrator
+gorm.io/gorm/schema
+gorm.io/gorm/utils

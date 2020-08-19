@@ -14,6 +14,5 @@ func Auth(r *ghttp.Request) {
 		response.JsonExit(r, 401, "令牌失效，请重新登录", false)
 	}
 	r.SetCtxVar("auth_user", token.Claims)
-	token.Claims.
-		r.Middleware.Next()
+	r.Middleware.Next()
 }
